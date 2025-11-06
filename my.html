@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>给老婆的话</title>
+    <style>
+        body {
+    background-color: skyblue;
+    margin: 20px;
+    text-align: center;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* 文本行样式 */
+.text-line {
+    display: none;
+    margin: 10px auto;
+    font-size: 16px;
+    max-width: 600px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* 弹窗基础样式 */
+.dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 100;
+}
+
+/* 弹窗文字样式 */
+.dialog p {
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* 按钮样式 */
+.dialog-btn {
+    margin: 0 12px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.btn-yes {
+    background: #42b983;
+}
+.btn-no {
+    background: #ff4d4f;
+}
+
+/* 表情样式 */
+#emoji {
+    font-size: 48px;
+    margin: 15px 0;
+}
+    </style>
+</head>
+<body>
+    <!-- 音频 -->
+    <audio controls autoplay>
+        <source src="caixukun.mp3" type="audio/mpeg">
+    </audio>
+    <!-- 文本内容 -->
+    <p class="text-line">对不起我亲爱的女朋友</p >
+    <p class="text-line">我的错</p >
+    <p class="text-line">今天我不该那样说</p >
+    <p class="text-line">现在开始她不是我表妹了</p >
+    <p class="text-line">她是我们爱情的见证人</p >
+    <p class="text-line">是祝福我们的人</p >
+    <p class="text-line">不管你因为什么生气</p >
+    <p class="text-line">都是我的错</p >
+    <p class="text-line">我不求你能原谅我</p >
+    <p class="text-line">我只求你能开开心心的</p >
+    <p class="text-line">不要因为我让你生气</p >
+    <p class="text-line">现在讲这些话都太迟了</p >
+    <p class="text-line">只是我想告诉你 我错了</p >
+    <p class="text-line">我不该惹你生气</p >
+    <p class="text-line">希望老婆能开心</p >
+    <p class="text-line">不管老婆什么时候需要我</p >
+    <p class="text-line">我都在你身边</p >
+    <p class="text-line">让我为老婆放首歌吧</p >
+
+    <!-- 弹窗1：初始请求 -->
+    <div class="dialog" id="dialog1">
+        <p>老婆你愿意原谅我嘛~</p >
+        <button class="dialog-btn btn-yes" id="yes1">愿意</button>
+        <button class="dialog-btn btn-no" id="no1">不愿意</button>
+    </div>
+
+    <!-- 弹窗2：求求了 -->
+    <div class="dialog" id="dialog2">
+        <p>求求了🥺🥺</p >
+        <button class="dialog-btn btn-yes" id="yes2" style="font-size: 18px; padding: 12px 24px;">愿意</button>
+        <button class="dialog-btn btn-no" id="no2" style="font-size: 12px; padding: 8px 16px;">不愿意</button>
+    </div>
+
+    <!-- 弹窗3：最终请求 -->
+    <div class="dialog" id="dialog3">
+        <p>老婆求求了</p >
+        <button class="dialog-btn btn-yes" id="yes3" style="font-size: 20px; padding: 14px 28px;">愿意</button>
+    </div>
+
+    <!-- 结果弹窗 -->
+    <div class="dialog" id="resultDialog">
+        <div id="emoji">蔡徐坤也为你正确的选择高兴🥰</div>
+    </div>
+
+    <script>
+        const textLines = document.querySelectorAll('.text-line');
+        const dialog1 = document.getElementById('dialog1');
+        const dialog2 = document.getElementById('dialog2');
+        const dialog3 = document.getElementById('dialog3');
+        const resultDialog = document.getElementById('resultDialog');
+        const audio = document.querySelector('audio');
+        const delay = 2000;
+
+
+        // 1. 逐句显示文本，然后弹出初始弹窗
+        function showTextAndFirstDialog() {
+            textLines.forEach(line => line.style.display = 'none');
+            [dialog1, dialog2, dialog3, resultDialog].forEach(d => d.style.display = 'none');
+
+            textLines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.display = 'block';
+                    if (index === textLines.length - 1) {
+                        setTimeout(() => {
+                            dialog1.style.display = 'block';
+                            audio.muted = false;
+                        }, delay);
+                    }
+                }, index * delay);
+            });
+        }
+
+
+        // 2. 初始弹窗逻辑
+        document.getElementById('yes1').addEventListener('click', () => {
+            dialog1.style.display = 'none';
+            resultDialog.style.display = 'block';
+        });
+        document.getElementById('no1').addEventListener('click', () => {
+            dialog1.style.display = 'none';
+            dialog2.style.display = 'block';
+        });
+
+
+        // 3. 求求了弹窗逻辑
+        document.getElementById('yes2').addEventListener('click', () => {
+            dialog2.style.display = 'none';
+            resultDialog.style.display = 'block';
+        });
+        document.getElementById('no2').addEventListener('click', () => {
+            dialog2.style.display = 'none';
+            dialog3.style.display = 'block';
+        });
+
+
+        // 4. 最终请求弹窗逻辑
+        document.getElementById('yes3').addEventListener('click', () => {
+            dialog3.style.display = 'none';
+            resultDialog.style.display = 'block';
+        });
+
+
+        // 初始化
+        showTextAndFirstDialog();
+    </script>
+</body>
+</html>
